@@ -1,0 +1,11 @@
+{	
+	"name": "realbigd",
+	"version": "XX_APP_VERSION",
+	"dependencies": {
+		"dojo": "XX_DOJO_VERSION",
+		"dijit": "XX_DOJO_VERSION",
+		"dgrid": "XX_DGRID_VERSION"
+	},
+	"description": "Realbigd Dojo Code",
+	"dojoBuild": "rbd.profile.js"
+}

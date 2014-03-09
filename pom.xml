@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>straight.beast</groupId>
+	<artifactId>app</artifactId>
+	<name>realbigd</name>
+	<packaging>war</packaging>
+	<version>1.0.0-BUILD-SNAPSHOT</version>
+	<properties>
+		<org.springframework-version>4.0.2.RELEASE</org.springframework-version>
+		<org.aspectj-version>1.7.4</org.aspectj-version>
+		<org.slf4j-version>1.7.6</org.slf4j-version>
+		<dojo.version>1.9.3</dojo.version>
+		<maven.war.plugin.version>2.4</maven.war.plugin.version>
+
+		<!-- files and directory locations -->
+		<webresources.location>${project.build.directory}/WebResources</webresources.location>
+		<webresources.javascript.location>${webresources.location}/js</webresources.javascript.location>
+
+		<dojo.source.basename>dojo-release-${dojo.version}-src</dojo.source.basename>
+		<dojo.source.local.unpacked.location>${webresources.javascript.location}/${dojo.source.basename}</dojo.source.local.unpacked.location>
+		<dojo.build.release.location>${webresources.javascript.location}/release</dojo.build.release.location>
+		<dojo.build.profileFile>${dojo.source.local.unpacked.location}/release.profile.js</dojo.build.profileFile>
+		<dojo.build.action>release</dojo.build.action>
+		<dojo.build.version>${project.artifactId}-${project.version}</dojo.build.version>
+		<dojo.build.release.name>scripts</dojo.build.release.name>
+
+		<tpv.maven.build.timestamp>${maven.build.timestamp}</tpv.maven.build.timestamp>
+		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+
+		<jslint.failOnError>true</jslint.failOnError>
+	</properties>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
+
+		<pluginManagement>
+			<plugins>
+				<!-- This will fix the eclipse lifecycle errors -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<!-- copy-dependency plugin -->
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[1.0.0,)</versionRange>
+										<goals>
+											<goal>copy-dependencies</goal>
+											<goal>clean</goal>
+											<goal>unpack</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute />
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-antrun-plugin</artifactId>
+										<versionRange>[1.0.0,)</versionRange>
+										<goals>
+											<goal>run</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.googlecode.jslint4java</groupId>
+										<artifactId>jslint4java-maven-plugin</artifactId>
+										<versionRange>[1.0.0,)</versionRange>
+										<goals>
+											<goal>lint</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<additionalProjectnatures>
+						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+					</additionalProjectnatures>
+					<additionalBuildcommands>
+						<buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+					</additionalBuildcommands>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<compilerArgument>-Xlint:all</compilerArgument>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<configuration>
+					<mainClass>org.test.int1.Main</mainClass>
+				</configuration>
+			</plugin>
+
+			<!-- Dojo Custom Build -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpackDojo</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<!-- Unpack the dojo source distribution -->
+								<artifactItem>
+									<groupId>org.dojotoolkit</groupId>
+									<artifactId>dojo</artifactId>
+									<classifier>sources</classifier>
+									<version>${dojo.version}</version>
+									<type>zip</type>
+									<outputDirectory>
+										${webresources.javascript.location}
+									</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<configuration>
+							<tasks>
+								<echo message="Move project Javascript for Dojo Custom Build Inclusion" />
+								<copy flatten="false" todir="${dojo.source.local.unpacked.location}">
+									<fileset dir="${basedir}/src/main/scripts" />
+								</copy>
+							</tasks>
+						</configuration>
+						<id>javascript-build</id>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<phase>process-resources</phase>
+					</execution>
+
+					<execution>
+						<configuration>
+							<tasks>
+								<echo message="Setting product version in package.json" />
+								<replace
+									file="${dojo.build.release.location}/scripts/realbigd/package.json">
+									<replacefilter token="XX_APP_VERSION" value="${project.version}" />
+									<replacefilter token="XX_DOJO_VERSION" value="${dojo.version}" />
+									<replacefilter token="XX_DGRID_VERSION" value="${dojo.version}" />
+								</replace>
+							</tasks>
+						</configuration>
+
+						<id>set-version-in-package</id>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<phase>process-classes</phase>
+					</execution>
+
+					<!-- Custom dojo build -->
+					<execution>
+						<configuration>
+							<tasks>
+								<echo message="Custom dojo build" />
+								<java classname="org.mozilla.javascript.tools.shell.Main"
+									fork="true" failonerror="true"
+									dir="${dojo.source.local.unpacked.location}/util/buildscripts">
+									<jvmarg value="-Xms256m" />
+									<jvmarg value="-Xmx256m" />
+
+									<arg value="../../dojo/dojo.js" />
+									<arg value="baseUrl=../../dojo" />
+									<arg value="load=build" />
+									<arg value="profile=${dojo.build.profileFile}" />
+									<arg value="action=${dojo.build.action}" />
+									<arg value="version=${dojo.build.version}" />
+									<arg value="releaseName=${dojo.build.release.name}" />
+
+									<arg value="layerOptimize=shrinksafe" />
+									<arg value="internStrings=true" />
+									<arg value="optimize=false" />
+									<arg value="localeList=en,en-us" />
+									<!-- <arg value="releaseDir=${dojo.build.release.location}" /> -->
+
+									<classpath>
+										<pathelement
+											location="${dojo.source.local.unpacked.location}/util/shrinksafe/js.jar" />
+										<pathelement
+											location="${dojo.source.local.unpacked.location}/util/closureCompiler/compiler.jar" />
+										<pathelement
+											location="${dojo.source.local.unpacked.location}/util/shrinksafe/shrinksafe.jar" />
+									</classpath>
+								</java>
+							</tasks>
+						</configuration>
+
+						<id>custom-dojo-build</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${maven.war.plugin.version}</version>
+				<configuration>
+					<warSourceExcludes>styles/*.css</warSourceExcludes>
+					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+
+					<webResources>
+						<resource>
+							<directory>${dojo.build.release.location}</directory>
+						</resource>
+						<resource>
+							<!-- Update Client.jsp with timestamp for resource locations to bust 
+								browser cache -->
+							<filtering>true</filtering>
+							<directory>src/main/webapp/WEB-INF/views</directory>
+							<includes>
+								<include>**/home.jsp</include>
+							</includes>
+							<targetPath>WEB-INF/views</targetPath>
+						</resource>
+					</webResources>
+
+					<archive>
+						<manifest>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework-version}</version>
+			<exclusions>
+				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
+		<!-- AspectJ -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>
+
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${org.slf4j-version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${org.slf4j-version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.15</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.mail</groupId>
+					<artifactId>mail</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.jms</groupId>
+					<artifactId>jms</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jdmk</groupId>
+					<artifactId>jmxtools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jmx</groupId>
+					<artifactId>jmxri</artifactId>
+				</exclusion>
+			</exclusions>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- @Inject -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+
+		<!-- Servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.7</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
+	
