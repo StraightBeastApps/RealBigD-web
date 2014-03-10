@@ -19,7 +19,6 @@ define(["dojo/_base/declare",
 		},
 
 		boot : function() {
-			console.log("in app boot()");
 			this._config();
 			this._startupSearchPage();
 		},
