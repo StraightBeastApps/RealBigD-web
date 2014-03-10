@@ -1,9 +1,10 @@
 define(["dojo/_base/declare",
        	"dojo/_base/lang",
        	"dojo/dom-construct",
+       	"dojo/dom",
         "dojo/request/handlers"
          ],
-        function(declare, lang, domConstruct, handlers){
+        function(declare, lang, domConstruct, dom, handlers){
 
    return declare(null, {
 	   
@@ -12,9 +13,7 @@ define(["dojo/_base/declare",
      },
 
      startup: function() {
-    	 console.log("before create div");
     	 domConstruct.create("div", {innerHTML: "Hello there, bitches."}, dom.byId("rbdMainSection"));
-    	 console.log("after create div");
      }
      
    });

@@ -16,11 +16,11 @@
 <body class="rbd-body">
 	<div id="rbdMainSection" class="fullHeight"></div>
 
-	<script>
+	<script type="text/javascript">
 		var lstDependencies = [];
 		var url = window.location.search.slice(1);
 		var blnDebugEnabled = url.indexOf("isDebugEnabled") != -1;
-		if (!blnDebugEnabled) {
+		if (blnDebugEnabled) {
 			lstDependencies = [ "realbigd/layers/rbd" ];
 		}
 
@@ -62,8 +62,9 @@
 			require([ "realbigd/rbd/app", "dojo/domReady!" ], function(app) {
 				console.log("im here homejsp 1");
 				var myApp = new app();
-				myApp.boot();
 				console.log("im here homejsp 2");
+				myApp.boot();
+				console.log("im here homejsp 3");
 			});
 		});
 	</script>
