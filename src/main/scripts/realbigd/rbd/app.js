@@ -1,13 +1,18 @@
 define(["dojo/_base/declare", 
          "dojo/_base/lang", 
          "dojo/request/handlers",
-		 "./controller/HomePageController"
+         "dojo/hash",
+         "dojo/topic",
+		 "./controller/HomePageController",
+		 "./widgets/search"
 		 ], 
-		 function(declare, lang, handlers, HomePageController) {
+		 function(declare, lang, handlers, hash, topic, HomePageController, search) {
 
 	return declare(null, {
 
 		_appController : null,
+		
+		_search: null,
 
 		constructor : function(args) {
 			lang.mixin(this, args);
@@ -16,12 +21,14 @@ define(["dojo/_base/declare",
 		boot : function() {
 			console.log("in app boot()");
 			this._config();
-			this._startupHomePage();
+			this._startupSearchPage();
 		},
 
-		_startupHomePage : function() {
-			var _appController = new HomePageController();
-			_appController.startup();
+		_startupSearchPage : function() {
+			//var _appController = new HomePageController();
+			var _search = new search();
+			hash("search");
+			_search.startup();
 		},
 
 		_config : function() {

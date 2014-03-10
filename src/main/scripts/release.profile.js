@@ -37,6 +37,7 @@ var profile = (function(){
         layers: {
         	"realbigd/layers/rbd": {
         		include: ["realbigd/rbd/app",
+        		          "realbigd/rbd/widgets/search",
         		          "dijit/_base",
         		          "dojo/_base/lang"
 	  			          ],
