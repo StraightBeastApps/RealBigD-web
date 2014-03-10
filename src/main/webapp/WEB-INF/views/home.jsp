@@ -60,11 +60,7 @@
 
 		require(dojoAppConfig, lstDependencies, function() {
 			require([ "realbigd/rbd/app", "dojo/domReady!" ], function(app) {
-				console.log("im here homejsp 1");
-				var myApp = new app();
-				console.log("im here homejsp 2");
-				myApp.boot();
-				console.log("im here homejsp 3");
+				new app().boot();
 			});
 		});
 	</script>
