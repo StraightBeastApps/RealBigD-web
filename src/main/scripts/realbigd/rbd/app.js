@@ -4,7 +4,7 @@ define(["dojo/_base/declare",
          "dojo/hash",
          "dojo/topic",
 		 "./controller/HomePageController",
-		 "./widgets/search"
+		 "./widgets/Search"
 		 ], 
 		 function(declare, lang, handlers, hash, topic, HomePageController, search) {
 
