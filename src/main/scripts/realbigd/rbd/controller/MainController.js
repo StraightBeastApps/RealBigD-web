@@ -1,10 +1,13 @@
 define(["dojo/_base/declare",
        	"dojo/_base/lang",
        	"dojo/dom-construct",
+       	"dojo/hash",
+        "dojo/topic",
        	"dojo/dom",
-        "dojo/request/handlers"
+        "dojo/request/handlers",
+		"../widgets/Search"
          ],
-        function(declare, lang, domConstruct, dom, handlers){
+        function(declare, lang, domConstruct, hash, topic, dom, handlers, search){
 
    return declare(null, {
 	   
@@ -14,7 +17,16 @@ define(["dojo/_base/declare",
 
      startup: function() {
     	 domConstruct.create("div", {innerHTML: "Hello there, bitches."}, dom.byId("rbdMainSection"));
-     }
+     },
+     
+     _startupSearchPage : function() {
+			//var _appController = new Main();
+			var _search = new search();
+			hash("search");
+			_search.startup();
+		}
+
+     
      
    });
 });

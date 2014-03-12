@@ -3,14 +3,13 @@ define(["dojo/_base/declare",
          "dojo/request/handlers",
          "dojo/hash",
          "dojo/topic",
-		 "./controller/HomePageController",
-		 "./widgets/Search"
+		 "./controller/MainController"
 		 ], 
-		 function(declare, lang, handlers, hash, topic, HomePageController, search) {
+		 function(declare, lang, handlers, hash, topic, MainController) {
 
 	return declare(null, {
 
-		_appController : null,
+		_mainController : null,
 		
 		_search: null,
 
@@ -20,14 +19,12 @@ define(["dojo/_base/declare",
 
 		boot : function() {
 			this._config();
-			this._startupSearchPage();
+			this._startupMainController();
 		},
 
-		_startupSearchPage : function() {
-			//var _appController = new HomePageController();
-			var _search = new search();
-			hash("search");
-			_search.startup();
+		_startupMainController : function() {
+			var _mainController = new MainController();
+			_mainController._startupSearchPage();
 		},
 
 		_config : function() {
