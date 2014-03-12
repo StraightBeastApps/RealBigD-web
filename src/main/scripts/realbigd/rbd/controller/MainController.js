@@ -20,7 +20,6 @@ define(["dojo/_base/declare",
      },
      
      _startupSearchPage : function() {
-			//var _appController = new Main();
 			var _search = new search();
 			hash("search");
 			_search.startup();

@@ -1,11 +1,9 @@
 define(["dojo/_base/declare", 
          "dojo/_base/lang", 
          "dojo/request/handlers",
-         "dojo/hash",
-         "dojo/topic",
 		 "./controller/MainController"
 		 ], 
-		 function(declare, lang, handlers, hash, topic, MainController) {
+		 function(declare, lang, handlers, MainController) {
 
 	return declare(null, {
 
