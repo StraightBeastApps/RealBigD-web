@@ -8,13 +8,13 @@ define(["dojo/_base/declare",
          "dojo/text!./templates/search.html",
          "dojo/domReady!"
 		 ], 
-		 function(declare, lang, domConstruct, dom, Memory, FilteringSelect, _TemplatedMixing, template) {
+		 function(declare, lang, domConstruct, dom, Memory, FilteringSelect, _TemplatedMixin, template) {
 
 	return declare(null, { 
 		
 		templateString: template,
 		
-		constructor : function(args) {
+		constructor: function(args) {
 			lang.mixin(this, args);
 		},
 	

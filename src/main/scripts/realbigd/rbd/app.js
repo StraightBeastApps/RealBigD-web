@@ -21,8 +21,8 @@ define(["dojo/_base/declare",
 		},
 
 		_startupMainController : function() {
-			var _mainController = new MainController();
-			_mainController._startupSearchPage();
+			this._mainController = new MainController();
+			this._mainController.startup();
 		},
 
 		_config : function() {
