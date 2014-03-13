@@ -20,8 +20,8 @@ define(["dojo/_base/declare",
      },
 
      startup: function() {
-    	 //domConstruct.create("div", {innerHTML: "Hello there, bitches."}, dom.byId("rbdMainSection"));
     	 this._startupNavigation();
+    	 this._startupSearchPage();
      },
      
      _startupNavigation: function() {

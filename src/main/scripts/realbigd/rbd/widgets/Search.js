@@ -1,27 +1,30 @@
 define(["dojo/_base/declare", 
          "dojo/_base/lang",
          "dojo/dom-construct",
+         "dojo/dom-prop",
          "dojo/dom",
          "dojo/store/Memory", 
          "dijit/form/FilteringSelect",
+         "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dojo/text!./templates/search.html",
          "dojo/domReady!"
 		 ], 
-		 function(declare, lang, domConstruct, dom, Memory, FilteringSelect, _TemplatedMixin, template) {
+		 function(declare, lang, domConstruct, domProp, dom, Memory, FilteringSelect, _WidgetBase, _TemplatedMixin, template) {
 
-	return declare(null, { 
+	return declare('realbigd/rbd/widgets/search', [_WidgetBase, _TemplatedMixin], { 
 		
 		templateString: template,
 		
-		constructor: function(args) {
-			lang.mixin(this, args);
-		},
 	
 		startup: function() {
-	    	 domConstruct.create("div", {innerHTML: "Hello there, we are at the search Page...."}, dom.byId("rbdMainSection"));
+	    	 //domConstruct.create("div", {innerHTML: "Hello there, we are at the search Page...."}, dom.byId("rbdMainSection"));
 	    	 this.createPageElements();
 	     },
+	     
+	    constructor: function(args) {
+				lang.mixin(this, args);
+			},
 		
 		createPageElements: function() {
 			this._buildSearchBar();
@@ -36,13 +39,14 @@ define(["dojo/_base/declare",
 		        ]
 		    });
 
-		    var filteringSelect = new FilteringSelect({
+		    var locationSelect = new FilteringSelect({
 		        id: "locationSelect",
 		        name: "location",
 		        value: "CA",
 		        store: locationStore,
 		        searchAttr: "name"
 		    }, "locationSelect");
+		    locationSelect.startup();
 		}
 
 	});
