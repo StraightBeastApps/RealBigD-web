@@ -18,7 +18,6 @@ define(["dojo/_base/declare",
 		
 	
 		startup: function() {
-	    	 //domConstruct.create("div", {innerHTML: "Hello there, we are at the search Page...."}, dom.byId("rbdMainSection"));
 	    	 this.createPageElements();
 	     },
 	     
@@ -45,8 +44,8 @@ define(["dojo/_base/declare",
 		        value: "CA",
 		        store: locationStore,
 		        searchAttr: "name"
-		    }, "locationSelect");
-		    locationSelect.startup();
+		    }, this.locationSelect);
+		    //locationSelect.startup();
 		}
 
 	});

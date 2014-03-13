@@ -33,9 +33,10 @@ define(["dojo/_base/declare",
      },
      
      _startupSearchPage : function() {
-		 var _search = new Search();
+		 this._search = new Search();
+		 this._search.placeAt(this.containerNode);
 	 	 hash("search");
-	 	 _search.startup();
+	 	 this._search.startup();
 	 }
      
    });
