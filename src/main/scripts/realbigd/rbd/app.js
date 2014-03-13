@@ -1,14 +1,17 @@
 define(["dojo/_base/declare", 
          "dojo/_base/lang", 
          "dojo/request/handlers",
+         "./widgets/Window",
 		 "./controller/MainController"
 		 ], 
-		 function(declare, lang, handlers, MainController) {
+		 function(declare, lang, handlers, Window, MainController) {
 
 	return declare(null, {
 
-		_mainController : null,
+		containerNode: null,
 		
+		_mainController: null,
+		_rootWidget: null,
 		_search: null,
 
 		constructor : function(args) {
@@ -17,11 +20,15 @@ define(["dojo/_base/declare",
 
 		boot : function() {
 			this._config();
+			
+			var self = this;
+			self._rootWidget = new Window({containerNode: self.containerNode});
+			
 			this._startupMainController();
 		},
 
 		_startupMainController : function() {
-			this._mainController = new MainController();
+			this._mainController = new MainController({containerNode: this._rootWidget.domNode});
 			this._mainController.startup();
 		},
 

@@ -12,6 +12,8 @@ define(["dojo/_base/declare",
 
    return declare(null, {
 	   
+	 containerNode: null,
+	   
 	 _search: null, 
 	 _navigation: null,
 	   
@@ -26,6 +28,7 @@ define(["dojo/_base/declare",
      
      _startupNavigation: function() {
     	 this._navigation = new Navigation();
+    	 this._navigation.placeAt(this.containerNode);
     	 this._navigation.startup();
      },
      

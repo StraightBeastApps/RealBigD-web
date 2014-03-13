@@ -9,16 +9,16 @@ define(["dojo/_base/declare",
          "dijit/DropDownMenu",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
-         "dojo/text!./templates/navigation.html",
+         "dojo/text!./templates/Navigation.html",
          "dojo/domReady!"
 		 ], 
 		 function(declare, lang, dom, domConstruct, MenuBar, Menu, MenuItem, PopupMenuBarItem, 
 				  DropDownMenu, _WidgetBase, _TemplatedMixin, template) {
 
 	return declare([_WidgetBase, _TemplatedMixin], { 
-		
-		baseClass: "navigation",
+
 		templateString: template,
+		baseClass: "navigation",
 		
 		_pMenuBar: null,
 		_pSubMenu: null,
@@ -65,9 +65,6 @@ define(["dojo/_base/declare",
 		        popup: this.pSubMenu2
 		    }));
 
-		    //this.pMenuBar.placeAt(this.navigationNode);
-		    console.log("here");
-		  //  domConstruct.place(this.pMenuBar, this.navigationNode);
 		    this.pMenuBar.startup();
 		}
 		

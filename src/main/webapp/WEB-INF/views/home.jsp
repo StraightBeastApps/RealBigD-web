@@ -9,11 +9,13 @@
 <link rel="icon" href="../sba-icon.png" type="image/x-icon" />
 <link rel="shortcut icon" href="../sba-icon.png" type="image/x-icon" />
 
-<script src="<spring:url value='/scripts/dojo/dojo.js'/>"data-dojo-config:"locale:'en', async:true, parseOnLoad:false"></script>
+<script src="<spring:url value='/scripts/dojo/dojo.js'/>" data-dojo-config:"locale:'en', async:true, parseOnLoad:false"></script>
+<link rel="stylesheet" type="text/css" href="<spring:url value='/scripts/dijit/themes/claro/claro.css'/>"></link>
+<link rel="stylesheet" type="text/css" href="<spring:url value='/scripts/realbigd/rbd/themes/main.css'/>"></link>
 
 <title>Real Big D, Bros.</title>
 </head>
-<body class="rbd-body">
+<body class="rbd-body claro">
 	<div id="rbdMainSection" class="fullHeight"></div>
 
 	<script type="text/javascript">
@@ -59,8 +61,9 @@
 		};
 
 		require(dojoAppConfig, lstDependencies, function() {
-			require([ "realbigd/rbd/app", "dojo/domReady!" ], function(app) {
-				new app().boot();
+			require([ "realbigd/rbd/app", "dojo/domReady!" ], 
+				function(app) {
+					new app({containerNode: 'rbdMainSection'}).boot();
 			});
 		});
 	</script>

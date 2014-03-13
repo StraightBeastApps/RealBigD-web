@@ -5,7 +5,7 @@ define(["dojo/_base/declare",
          "dojo/store/Memory", 
          "dijit/form/FilteringSelect",
          "dijit/_TemplatedMixin",
-         "dojo/text!./templates/search.html",
+         "dojo/text!./templates/Search.html",
          "dojo/domReady!"
 		 ], 
 		 function(declare, lang, domConstruct, dom, Memory, FilteringSelect, _TemplatedMixin, template) {
