@@ -43,11 +43,11 @@ define(["dojo/_base/declare",
      },
      
      placeSearchBar: function(widget) {
-    	 widget.placeAt(this.navigationPaneNode);
+    	 widget.placeAt(this.searchPaneNode);
      },
      
      placeInfoBar: function(widget) {
-    	 widget.placeAt(this.navigationPaneNode);
+    	 widget.placeAt(this.infoPaneNode);
      }
      
    });
