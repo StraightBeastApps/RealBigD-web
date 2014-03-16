@@ -28,16 +28,6 @@
 
 		//NOTE: Project version: ${project.version}
 
-		var buildTs = "${serverTime}";
-		if (buildTs === "") {
-			buildTs = "" + new Date().getTime();
-		}
-
-		if (blnDebugEnabled) {
-			// In debug mode we don't want to change the url so that we can set breakpoints
-			buildTs = "1234567890000";
-		}
-
 		var pathContext = "${contextPath}";
 		if (pathContext.indexOf("/", pathContext.length - 1) === -1) {
 			pathContext = pathContext + "/";

@@ -1,7 +1,5 @@
 define(["dojo/_base/declare", 
          "dojo/_base/lang",
-         "dojo/dom",
-         "dojo/dom-construct",
          "dijit/MenuBar",
          "dijit/Menu",
          "dijit/MenuItem",
@@ -12,7 +10,7 @@ define(["dojo/_base/declare",
          "dojo/text!./templates/Navigation.html",
          "dojo/domReady!"
 		 ], 
-		 function(declare, lang, dom, domConstruct, MenuBar, Menu, MenuItem, PopupMenuBarItem, 
+		 function(declare, lang, MenuBar, Menu, MenuItem, PopupMenuBarItem, 
 				  DropDownMenu, _WidgetBase, _TemplatedMixin, template) {
 
 	return declare([_WidgetBase, _TemplatedMixin], { 
@@ -64,8 +62,6 @@ define(["dojo/_base/declare",
 		        label: "Edit",
 		        popup: this.pSubMenu2
 		    }));
-
-		    this.pMenuBar.startup();
 		}
 		
 	});

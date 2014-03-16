@@ -1,14 +1,15 @@
 define(["dojo/_base/declare",
-       	"dojo/_base/lang",
-       	"dojo/dom-construct",
+        "dojo/_base/lang",
+        "dojo/dom-construct",
        	"dojo/hash",
         "dojo/topic",
-       	"dojo/dom",
+        "dojo/dom",
         "dojo/request/handlers",
+        "../widgets/LayoutController",
         "../widgets/Navigation",
         "../widgets/Search"
          ],
-        function(declare, lang, domConstruct, hash, topic, dom, handlers, Navigation, Search){
+        function(declare, lang, domConstruct, hash, topic, dom, handlers, LayoutController, Navigation, Search){
 
    return declare(null, {
 	   
@@ -16,25 +17,33 @@ define(["dojo/_base/declare",
 	   
 	 _search: null, 
 	 _navigation: null,
+	 _layoutController: null,
 	   
      constructor: function(args) {
     	 lang.mixin(this, args);
      },
 
      startup: function() {
-    	 this._startupNavigation();
-    	 this._startupSearchPage();
+    	 this._buildMainPage();
      },
      
-     _startupNavigation: function() {
+     _buildMainPage: function() {
+    	 this._startupNavigationBar();
+    	 this._startupSearchBar(); 
+    	 
+    	 this._layoutController = new LayoutController({}, this.containerNode);
+    	 this._layoutController.placeNavigationBar(this._navigation);
+    	 this._layoutController.placeSearchBar(this._search);
+    	 this._layoutController.startup();
+     },
+     
+     _startupNavigationBar: function() {
     	 this._navigation = new Navigation();
-    	 this._navigation.placeAt(this.containerNode);
     	 this._navigation.startup();
      },
      
-     _startupSearchPage : function() {
+     _startupSearchBar : function() {
 		 this._search = new Search();
-		 this._search.placeAt(this.containerNode);
 	 	 hash("search");
 	 	 this._search.startup();
 	 }
