@@ -5,12 +5,14 @@ define(["dojo/_base/declare",
          "dojo/dom",
          "dojo/store/Memory", 
          "dijit/form/FilteringSelect",
+         "dijit/form/TextBox",
+         "dijit/form/Button",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dojo/text!./templates/Search.html",
          "dojo/domReady!"
 		 ], 
-		 function(declare, lang, domConstruct, domProp, dom, Memory, FilteringSelect, _WidgetBase, _TemplatedMixin, template) {
+		 function(declare, lang, domConstruct, domProp, dom, Memory, FilteringSelect, TextBox, Button, _WidgetBase, _TemplatedMixin, template) {
 
 	return declare('realbigd/rbd/widgets/search', [_WidgetBase, _TemplatedMixin], { 
 		
@@ -27,6 +29,8 @@ define(["dojo/_base/declare",
 		
 		createPageElements: function() {
 			this._buildSearchBar();
+			this._buildClearButton();
+			this._buildSearchButton();
 		},
 		
 		_buildSearchBar: function() {
@@ -41,11 +45,29 @@ define(["dojo/_base/declare",
 		    var locationSelect = new FilteringSelect({
 		        id: "locationSelect",
 		        name: "location",
-		        value: "CA",
+		        hasDownArrow: false,
 		        store: locationStore,
 		        searchAttr: "name"
 		    }, this.locationSelect);
 		    //locationSelect.startup();
+		},
+		
+		_buildSearchButton: function() {
+			var searchButton = new Button({
+				label: "Search",
+		        onClick: dojo.hitch(this, function(e){
+		        	alert("shit don't work yet");
+		        })
+			}, this.searchButton);
+		},
+		
+		_buildClearButton: function() {
+			var clearButton = new Button({
+				label: "Clear",
+		        onClick: dojo.hitch(this, function(e){
+		            this.locationSelect.set('displayedValue', "");
+		        })
+			}, this.clearButton);
 		}
 
 	});
