@@ -2,17 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>straight.beast.apps</groupId>
+	<groupId>com.straightbeast.bigd</groupId>
 	<artifactId>RealBigD-web</artifactId>
-	<name>RealBigD</name>
+	<name>RealBigD Web</name>
 	<packaging>war</packaging>
-	<version>1.0.0-BUILD-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<properties>
+		<jdk-version>1.7</jdk-version>
 		<org.springframework-version>4.0.2.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.7.4</org.aspectj-version>
 		<org.slf4j-version>1.7.6</org.slf4j-version>
 		<dojo.version>1.9.3</dojo.version>
 		<maven.war.plugin.version>2.4</maven.war.plugin.version>
+		<org.hibernate-version>3.6.0.Final</org.hibernate-version>
+		<postgresql.jdbc-version>9.1-901.jdbc4</postgresql.jdbc-version>
 
 		<!-- files and directory locations -->
 		<webresources.location>${project.build.directory}/WebResources</webresources.location>
@@ -45,6 +48,26 @@
 
 		<pluginManagement>
 			<plugins>
+				<plugin>
+			    	<groupId>org.apache.maven.plugins</groupId>
+			      	<artifactId>maven-enforcer-plugin</artifactId>
+			      	<executions>
+			        	<execution>
+			          		<id>enforce-versions</id>
+			          			<goals>
+			            			<goal>enforce</goal>
+			          			</goals>
+			          		<configuration>
+			            		<rules>
+			              			<requireJavaVersion>
+			                			<version>${jdk-version}</version>
+			              			</requireJavaVersion>
+			            		</rules>
+			          		</configuration>
+			        	</execution>
+			      	</executions>
+			    </plugin>
+			
 				<!-- This will fix the eclipse lifecycle errors -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
@@ -102,7 +125,7 @@
 			</plugins>
 		</pluginManagement>
 
-		<plugins>
+		<plugins>		
 			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<version>2.9</version>
@@ -290,6 +313,12 @@
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.straightbeast.bigd</groupId>
+			<artifactId>RealBigDPersistence</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+	
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -308,11 +337,44 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework-version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${org.hibernate-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.jdbc-version}</version>
+		</dependency>
+		
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>
 
