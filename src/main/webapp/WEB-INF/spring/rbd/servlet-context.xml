@@ -3,9 +3,15 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd		
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -21,8 +27,44 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="straight.beast.app" />
+	<context:component-scan base-package="com.straightbeast.realbigd" />
+
+	<beans:bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	    <beans:property name="driverClassName" value="org.postgresql.Driver" />
+	    <beans:property name="url" value="jdbc:postgresql://localhost:5432/hello_world" />
+	    <beans:property name="username" value="postgres" />
+	    <beans:property name="password" value="suck17pg" />
+	</beans:bean>
 	
+	<beans:bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    	<beans:property name="dataSource" ref="dataSource" />
+    	<beans:property name="sessionFactory" ref="sessionFactory" />
+	</beans:bean>
 	
+	<aop:config>
+	    <aop:pointcut id="logicCutPoint" 
+	          expression="execution(* com.straightbeast.realbigd.service.*.*(..))" />
+	
+	    <aop:advisor advice-ref="txAdvice"
+	         pointcut-ref="logicCutPoint"/>
+	</aop:config>
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+	    <tx:attributes>
+	        <!-- set propogation required on create methods, all others are read-only -->
+	        <tx:method name="save*" read-only="false"/>
+	        <tx:method name="*" read-only="true" />
+	    </tx:attributes>
+	</tx:advice>
+
+	<beans:bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+	    <beans:property name="dataSource" ref="dataSource"/>
+	    <beans:property name="packagesToScan"  value="com.straightbeast.realbigd.persistence.domain" />
+	    <beans:property name="hibernateProperties">
+            <beans:props>
+                <beans:prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</beans:prop>
+            </beans:props>
+        </beans:property>
+    </beans:bean>
 	
 </beans:beans>

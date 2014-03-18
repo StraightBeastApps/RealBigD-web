@@ -1,4 +1,4 @@
-package straight.beast.app;
+package com.straightbeast.realbigd.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
