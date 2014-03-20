@@ -8,6 +8,7 @@
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<properties>
+		<!-- Most of these properties are the same across all applications, consider master parent pom -->
 		<jdk-version>1.7</jdk-version>
 		<org.springframework-version>4.0.2.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.7.4</org.aspectj-version>
@@ -16,6 +17,7 @@
 		<maven.war.plugin.version>2.4</maven.war.plugin.version>
 		<org.hibernate-version>3.6.0.Final</org.hibernate-version>
 		<postgresql.jdbc-version>9.1-901.jdbc4</postgresql.jdbc-version>
+		<junit-version>4.11</junit-version>
 
 		<!-- files and directory locations -->
 		<webresources.location>${project.build.directory}/WebResources</webresources.location>
@@ -146,8 +148,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.5.1</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>${jdk-version}</source>
+					<target>${jdk-version}</target>
 					<compilerArgument>-Xlint:all</compilerArgument>
 					<showWarnings>true</showWarnings>
 					<showDeprecation>true</showDeprecation>
@@ -451,7 +453,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.7</version>
+			<version>${junit-version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
