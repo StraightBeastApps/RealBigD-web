@@ -36,7 +36,7 @@
 	    <beans:property name="password" value="suck17pg" />
 	</beans:bean>
 	
-	<beans:bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+	<beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
     	<beans:property name="dataSource" ref="dataSource" />
     	<beans:property name="sessionFactory" ref="sessionFactory" />
 	</beans:bean>
@@ -57,7 +57,7 @@
 	    </tx:attributes>
 	</tx:advice>
 
-	<beans:bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+	<beans:bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 	    <beans:property name="dataSource" ref="dataSource"/>
 	    <beans:property name="packagesToScan"  value="com.straightbeast.realbigd.persistence.domain" />
 	    <beans:property name="hibernateProperties">

@@ -32,6 +32,18 @@
 		<level value="info" />
 	</logger>
 
+	<!-- Hibernate -->
+	<logger name="org.hibernate.SQL">
+		<level value="DEBUG"></level>
+		
+	</logger>
+	<logger name="org.hibernate.type">
+		<level value="TRACE"></level>
+	</logger>
+	<logger name="org.hibernate">
+		<level value="INFO"></level>
+	</logger>
+
 	<!-- Root Logger -->
 	<root>
 		<priority value="info" />
