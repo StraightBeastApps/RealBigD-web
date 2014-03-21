@@ -21,8 +21,6 @@ define(["dojo/_base/declare",
 		
 		_navigationItems: null,
 		_menuBar: null,
-		_subMenu: null,
-		_subMenu2: null,
 		
 		constructor: function(args) {
 			lang.mixin(this, args);
@@ -34,45 +32,24 @@ define(["dojo/_base/declare",
 		},
 	
 		_buildMenuBar: function() {
-			this.pMenuBar = new MenuBar({}, this.navigationNode);
+			this._menuBar = new MenuBar({}, this.navigationNode);
 			this._getNavigationMetaData();			
-			
-			
-		    this.pSubMenu = new DropDownMenu({});
-		    this.pSubMenu.addChild(new MenuItem({
-		        label: "File item #1"
-		    }));
-		    this.pSubMenu.addChild(new MenuItem({
-		        label: "File item #2"
-		    }));
-		    this.pMenuBar.addChild(new PopupMenuBarItem({
-		        label: "File",
-		        popup: this.pSubMenu
-		    }));
-
-		    this.pSubMenu2 = new DropDownMenu({});
-		    this.pSubMenu2.addChild(new MenuItem({
-		        label: "Cut",
-		        iconClass: "dijitEditorIcon dijitEditorIconCut"
-		    }));
-		    this.pSubMenu2.addChild(new MenuItem({
-		        label: "Copy",
-		        iconClass: "dijitEditorIcon dijitEditorIconCopy"
-		    }));
-		    this.pSubMenu2.addChild(new MenuItem({
-		        label: "Paste",
-		        iconClass: "dijitEditorIcon dijitEditorIconPaste"
-		    }));
-		    this.pMenuBar.addChild(new PopupMenuBarItem({
-		        label: "Edit",
-		        popup: this.pSubMenu2
-		    }));
 		},
 		
 		_getNavigationMetaData: function() {
 			this._navigationItems.store.query({}).forEach(lang.hitch(this, function(item) {
-				this.pMenuBar.addChild(new PopupMenuBarItem({
-					label: item.name
+				var dropDown = new DropDownMenu({});
+				var subMenu = item.subMenu.split('|');
+				
+				subMenu.forEach(function(entry) {
+						dropDown.addChild(new MenuItem({
+							label: entry
+						}));
+				});
+				
+				this._menuBar.addChild(new PopupMenuBarItem({
+							label: item.name,
+							popup: dropDown
 				}));
 			}));
 		}
