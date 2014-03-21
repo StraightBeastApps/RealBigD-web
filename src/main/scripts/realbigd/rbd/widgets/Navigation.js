@@ -7,32 +7,37 @@ define(["dojo/_base/declare",
          "dijit/DropDownMenu",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
+         "../repositories/NavigationStore",
          "dojo/text!./templates/Navigation.html",
          "dojo/domReady!"
 		 ], 
 		 function(declare, lang, MenuBar, Menu, MenuItem, PopupMenuBarItem, 
-				  DropDownMenu, _WidgetBase, _TemplatedMixin, template) {
+				  DropDownMenu, _WidgetBase, _TemplatedMixin, NavigationStore, template) {
 
 	return declare([_WidgetBase, _TemplatedMixin], { 
 
 		templateString: template,
 		baseClass: "navigation",
 		
-		_pMenuBar: null,
-		_pSubMenu: null,
-		_pSubMenu2: null,
+		_navigationItems: null,
+		_menuBar: null,
+		_subMenu: null,
+		_subMenu2: null,
 		
 		constructor: function(args) {
 			lang.mixin(this, args);
 		},
 	
 		startup: function() {
+			this._navigationItems = new NavigationStore();
 			this._buildMenuBar();
 		},
 	
 		_buildMenuBar: function() {
 			this.pMenuBar = new MenuBar({}, this.navigationNode);
-
+			this._getNavigationMetaData();			
+			
+			
 		    this.pSubMenu = new DropDownMenu({});
 		    this.pSubMenu.addChild(new MenuItem({
 		        label: "File item #1"
@@ -62,6 +67,14 @@ define(["dojo/_base/declare",
 		        label: "Edit",
 		        popup: this.pSubMenu2
 		    }));
+		},
+		
+		_getNavigationMetaData: function() {
+			this._navigationItems.store.query({}).forEach(lang.hitch(this, function(item) {
+				this.pMenuBar.addChild(new PopupMenuBarItem({
+					label: item.name
+				}));
+			}));
 		}
 		
 	});
