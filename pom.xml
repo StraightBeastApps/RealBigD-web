@@ -18,6 +18,7 @@
 		<org.hibernate-version>4.3.4.Final</org.hibernate-version>
 		<postgresql.jdbc-version>9.1-901.jdbc4</postgresql.jdbc-version>
 		<junit-version>4.11</junit-version>
+		<jackson-version>1.9.10</jackson-version>
 
 		<!-- files and directory locations -->
 		<webresources.location>${project.build.directory}/WebResources</webresources.location>
@@ -366,6 +367,13 @@
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>${postgresql.jdbc-version}</version>
+		</dependency>
+		
+		<!-- Jackson JSON Mapper -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson-version}</version>
 		</dependency>
 		
 		<!-- AspectJ -->
