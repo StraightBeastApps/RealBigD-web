@@ -36,7 +36,13 @@ define(["dojo/_base/declare",
 		},
 		
 		_buildSearchBar: function() {
-			var locationStore = new Memory({
+			
+			var locationSelect = new TextBox({
+		        id: "locationSelect",
+		        name: "location"
+		    }, this.locationSelect);
+			
+			/*var locationStore = new Memory({
 		        data: [
 		            {name:"Ballantyne, Charlotte", id:"Bal"},
 		            {name:"South End, Charlotte", id:"SE"},
@@ -50,8 +56,7 @@ define(["dojo/_base/declare",
 		        hasDownArrow: false,
 		        store: locationStore,
 		        searchAttr: "name"
-		    }, this.locationSelect);
-		    //locationSelect.startup();
+		    }, this.locationSelect);*/
 		},
 		
 		_buildRadioButtons: function() {
@@ -78,9 +83,20 @@ define(["dojo/_base/declare",
 			var searchButton = new Button({
 				label: "Search",
 		        onClick: dojo.hitch(this, function(e){
-		        	alert("shit don't work yet");
+		        	var type = this.getRadioValue('radio');
+		        	var location = dom.byId('locationSelect').value;	        	
+		        	alert("Searching : " + location + "in the category of :" + type);
 		        })
 			}, this.searchButton);
+		},
+		
+		getRadioValue: function(radios) {
+		    var elements = document.getElementsByName(radios);
+		    for (var i=0; i<elements.length; i++){
+		        if (elements[i].checked){
+		            return elements[i].value;
+		        }
+		    }
 		},
 		
 		_buildClearButton: function() {
