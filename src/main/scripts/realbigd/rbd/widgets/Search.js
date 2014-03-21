@@ -5,6 +5,7 @@ define(["dojo/_base/declare",
          "dojo/dom",
          "dojo/store/Memory", 
          "dijit/form/FilteringSelect",
+         "dijit/form/RadioButton",
          "dijit/form/TextBox",
          "dijit/form/Button",
          "dijit/_WidgetBase",
@@ -12,7 +13,7 @@ define(["dojo/_base/declare",
          "dojo/text!./templates/Search.html",
          "dojo/domReady!"
 		 ], 
-		 function(declare, lang, domConstruct, domProp, dom, Memory, FilteringSelect, TextBox, Button, _WidgetBase, _TemplatedMixin, template) {
+		 function(declare, lang, domConstruct, domProp, dom, Memory, FilteringSelect, RadioButton, TextBox, Button, _WidgetBase, _TemplatedMixin, template) {
 
 	return declare('realbigd/rbd/widgets/search', [_WidgetBase, _TemplatedMixin], { 
 		
@@ -29,6 +30,7 @@ define(["dojo/_base/declare",
 		
 		createPageElements: function() {
 			this._buildSearchBar();
+			this._buildRadioButtons();
 			this._buildClearButton();
 			this._buildSearchButton();
 		},
@@ -38,7 +40,7 @@ define(["dojo/_base/declare",
 		        data: [
 		            {name:"Ballantyne, Charlotte", id:"Bal"},
 		            {name:"South End, Charlotte", id:"SE"},
-		            {name:"Rock Hill, South Carolina (really...??!?!?!)", id:"RH"}
+		            {name:"Rock Hill, South Carolina", id:"RH"}
 		        ]
 		    });
 
@@ -50,6 +52,26 @@ define(["dojo/_base/declare",
 		        searchAttr: "name"
 		    }, this.locationSelect);
 		    //locationSelect.startup();
+		},
+		
+		_buildRadioButtons: function() {
+			var radioSale = new RadioButton({
+		        checked: true,
+		        value: "sale",
+		        name: "sale",
+		    }, this.radioSale).startup();
+			
+			var radioRent = new RadioButton({
+		        checked: false,
+		        value: "rent",
+		        name: "rent",
+		    }, this.radioRent).startup();
+			
+			var radioRecentlySold = new RadioButton({
+		        checked: false,
+		        value: "recentlySold",
+		        name: "recentlySold",
+		    }, this.radioRecentlySold).startup();
 		},
 		
 		_buildSearchButton: function() {
@@ -65,7 +87,7 @@ define(["dojo/_base/declare",
 			var clearButton = new Button({
 				label: "Clear",
 		        onClick: dojo.hitch(this, function(e){
-		            this.locationSelect.set('displayedValue', "");
+		            this.locationSelect.displayedValue = "";
 		        })
 			}, this.clearButton);
 		}
