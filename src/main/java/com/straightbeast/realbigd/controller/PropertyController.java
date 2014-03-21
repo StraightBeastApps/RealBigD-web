@@ -30,6 +30,8 @@ public class PropertyController {
 	@Autowired
 	private PropertyService propertyService;
 	
+	
+	//http://localhost:8080/RealBigD-web/propertySearch?address=estes&price=100000&opCode=1
 	@RequestMapping(value = "/propertySearch", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<List<PropertyDTO>> propertySearch(
 			@RequestParam(value = "address", required=false) String address,
