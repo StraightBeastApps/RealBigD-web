@@ -58,19 +58,19 @@ define(["dojo/_base/declare",
 			var radioSale = new RadioButton({
 		        checked: true,
 		        value: "sale",
-		        name: "sale",
+		        name: "radio",
 		    }, this.radioSale).startup();
 			
 			var radioRent = new RadioButton({
 		        checked: false,
 		        value: "rent",
-		        name: "rent",
+		        name: "radio",
 		    }, this.radioRent).startup();
 			
 			var radioRecentlySold = new RadioButton({
 		        checked: false,
 		        value: "recentlySold",
-		        name: "recentlySold",
+		        name: "radio",
 		    }, this.radioRecentlySold).startup();
 		},
 		
