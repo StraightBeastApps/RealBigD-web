@@ -49,7 +49,7 @@ define(["dojo/_base/declare",
 					},{	
 						name: "More", 
 						id: "5",
-						subMenu: + "Mobile|"
+						subMenu: "Mobile|"
 								 + "What TheROD Offers|"
 								 + "Real Estate Advertising|"
 								 + "Widgets, Badges & Data|"
