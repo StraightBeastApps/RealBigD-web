@@ -19,6 +19,7 @@ define(["dojo/_base/declare",
 	return declare('realbigd/rbd/widgets/search', [_WidgetBase, _TemplatedMixin], { 
 		
 		templateString: template,
+		baseClass: "search",
 		
 	
 		startup: function() {
