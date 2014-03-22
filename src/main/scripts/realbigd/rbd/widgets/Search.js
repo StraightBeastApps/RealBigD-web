@@ -3,6 +3,7 @@ define(["dojo/_base/declare",
          "dojo/dom-construct",
          "dojo/dom-prop",
          "dojo/dom",
+         "dojo/keys",
          "dojo/store/Memory", 
          "dijit/form/FilteringSelect",
          "dijit/form/RadioButton",
@@ -13,7 +14,7 @@ define(["dojo/_base/declare",
          "dojo/text!./templates/Search.html",
          "dojo/domReady!"
 		 ], 
-		 function(declare, lang, domConstruct, domProp, dom, Memory, FilteringSelect, RadioButton, TextBox, Button, _WidgetBase, _TemplatedMixin, template) {
+		 function(declare, lang, domConstruct, domProp, dom, keys, Memory, FilteringSelect, RadioButton, TextBox, Button, _WidgetBase, _TemplatedMixin, template) {
 
 	return declare('realbigd/rbd/widgets/search', [_WidgetBase, _TemplatedMixin], { 
 		
@@ -39,7 +40,12 @@ define(["dojo/_base/declare",
 			
 			var locationSelect = new TextBox({
 		        id: "locationSelect",
-		        name: "location"
+		        name: "location", 
+		        onKeyUp: dojo.hitch(this, function(e){
+		        	if(e.keyCode == keys.ENTER){
+		        		this._executeSearch();
+		        	}
+		        })
 		    }, this.locationSelect);
 			
 			/*var locationStore = new Memory({
@@ -82,12 +88,14 @@ define(["dojo/_base/declare",
 		_buildSearchButton: function() {
 			var searchButton = new Button({
 				label: "Search",
-		        onClick: dojo.hitch(this, function(e){
-		        	var type = this.getRadioValue('radio');
-		        	var location = dom.byId('locationSelect').value;	        	
-		        	alert("Searching : " + location + "in the category of :" + type);
-		        })
+		        onClick: dojo.hitch(this, this._executeSearch)
 			}, this.searchButton);
+		},
+		
+		_executeSearch: function() {
+			var type = this.getRadioValue('radio');
+        	var location = dom.byId('locationSelect').value;	        	
+        	alert("Searching : " + location + "in the category of :" + type);
 		},
 		
 		getRadioValue: function(radios) {
@@ -103,7 +111,7 @@ define(["dojo/_base/declare",
 			var clearButton = new Button({
 				label: "Clear",
 		        onClick: dojo.hitch(this, function(e){
-		            this.locationSelect.displayedValue = "";
+		            this.locationSelect.value = "";
 		        })
 			}, this.clearButton);
 		}
