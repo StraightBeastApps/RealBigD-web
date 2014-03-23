@@ -1,6 +1,12 @@
 OpenLayers Source: http://www.openlayers.org/download/OpenLayers-2.13.1.zip
 
+	Maven command to install the .zip to a local maven repo, which will then allow for a successful build.
+	
+	mvn install:install-file -DgroupId=straight.beast -DartifactId=openlayers -Dversion=2.13.1 -Dpackaging=zip -Dclassifier=sources -Dfile=./OpenLayers-2.13.1.zip -DgeneratePom=true -DcreateChecksum=true
+	
+	
+Dojo Source: http://download.dojotoolkit.org/release-1.9.3/dojo-release-1.9.3-src.zip
 
-Maven command to install the .zip to a local maven repo, which will then allow for a successful build.
-
-mvn install:install-file -DgroupId=straight.beast -DartifactId=openlayers -Dversion=2.13.1 -Dpackaging=zip -Dclassifier=sources -Dfile=./OpenLayers-2.13.1.zip -DgeneratePom=true -DcreateChecksum=true
+	Maven command to install the .zip to a local maven repo, which will then allow for a successful build.
+	
+	mvn install:install-file -DgroupId=org.dojotoolkit -DartifactId=dojo -Dversion=2.13.1 -Dpackaging=zip -Dclassifier=sources -Dfile=./dojo-release-1.9.3-src.zip -DgeneratePom=true -DcreateChecksum=true
