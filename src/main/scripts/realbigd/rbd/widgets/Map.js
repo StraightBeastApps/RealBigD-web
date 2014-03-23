@@ -34,7 +34,7 @@ define(["dojo/_base/declare",
 
 		    this._map.fitTo({
 		    		position : [ rh.longitude, rh.latitude ],
-		    		extent : 0.01
+		    		extent : 0.03
 		    });
 		}
 		
