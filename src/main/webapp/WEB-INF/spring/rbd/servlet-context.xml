@@ -18,8 +18,9 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- Handles HTTP GET requests by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/scripts/**" location="/scripts/" />
+	<resources mapping="/OpenLayers-2.13.1/**" location="/OpenLayers-2.13.1/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -33,7 +34,7 @@
 	    <beans:property name="driverClassName" value="org.postgresql.Driver" />
 	    <beans:property name="url" value="jdbc:postgresql://localhost:5432/hello_world" />
 	    <beans:property name="username" value="postgres" />
-	    <beans:property name="password" value="suck17pg" />
+	    <beans:property name="password" value="Iminbeast" />
 	</beans:bean>
 	
 	<beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">

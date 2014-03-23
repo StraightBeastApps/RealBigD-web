@@ -14,7 +14,7 @@ define(["dojo/_base/declare",
 		 function(declare, lang, MenuBar, Menu, MenuItem, PopupMenuBarItem, 
 				  DropDownMenu, _WidgetBase, _TemplatedMixin, NavigationStore, template) {
 
-	return declare([_WidgetBase, _TemplatedMixin], { 
+	return declare('realbigd/rbd/widgets/navigation', [_WidgetBase, _TemplatedMixin], { 
 
 		templateString: template,
 		baseClass: "navigation",

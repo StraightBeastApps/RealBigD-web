@@ -6,12 +6,10 @@ define(["dojo/_base/declare",
         "dijit/layout/ContentPane",
         "dijit/_WidgetBase",
         "dijit/_TemplatedMixin",
-        "../widgets/Navigation",
-        "../widgets/Search",
         "dojo/text!./templates/LayoutController.html"
          ],
         function(declare, lang, registry, BorderContainer, TabContainer, ContentPane, 
-        		 _WidgetBase, _TemplatedMixin, Navigation, Search, template) {
+        		 _WidgetBase, _TemplatedMixin, template) {
 
    return declare([_WidgetBase, _TemplatedMixin], {
 	   

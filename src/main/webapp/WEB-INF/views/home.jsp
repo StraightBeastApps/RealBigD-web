@@ -10,6 +10,7 @@
 <link rel="shortcut icon" href="../sba-icon.png" type="image/x-icon" />
 
 <script src="<spring:url value='/scripts/dojo/dojo.js'/>" data-dojo-config:"locale:'en', async:true, parseOnLoad:false"></script>
+<script type="text/javascript" src="<spring:url value='/OpenLayers-2.13.1/OpenLayers.js'/>"></script>
 <link rel="stylesheet" type="text/css" href="<spring:url value='/scripts/dijit/themes/claro/claro.css'/>"></link>
 <link rel="stylesheet" type="text/css" href="<spring:url value='/scripts/realbigd/rbd/themes/main.css'/>"></link>
 

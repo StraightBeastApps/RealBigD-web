@@ -45,8 +45,10 @@ html, body {
 }
 
 .layout-infoPane {
-	width: 100%;
-	height: 1000px;
+	width: 500px;
+	height: 300px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 /***********************************
@@ -100,6 +102,14 @@ html, body {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
     color: #FFFFFF;
 }
+
+/***********************************
+	Ending Section
+***********************************/
+
+/***********************************
+	Map Styling
+***********************************/
 
 /***********************************
 	Ending Section

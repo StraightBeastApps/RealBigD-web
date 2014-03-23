@@ -6,16 +6,18 @@ define(["dojo/_base/declare",
         "dojo/dom",
         "dojo/request/handlers",
         "../widgets/LayoutController",
+        "../widgets/Map",
         "../widgets/Navigation",
         "../widgets/Search"
          ],
-        function(declare, lang, domConstruct, hash, topic, dom, handlers, LayoutController, Navigation, Search){
+        function(declare, lang, domConstruct, hash, topic, dom, handlers, LayoutController, Map, Navigation, Search){
 
    return declare(null, {
 	   
 	 containerNode: null,
 	   
 	 _search: null, 
+	 _map: null,
 	 _navigation: null,
 	 _layoutController: null,
 	   
@@ -30,11 +32,14 @@ define(["dojo/_base/declare",
      _buildMainPage: function() {
     	 this._startupNavigationBar();
     	 this._startupSearchBar(); 
+    	 this._buildMapTest();
     	 
     	 this._layoutController = new LayoutController({}, this.containerNode);
     	 this._layoutController.placeNavigationBar(this._navigation);
     	 this._layoutController.placeSearchBar(this._search);
-    	 this._layoutController.startup();
+    	 //TODO: shitty test for now, need to create method to place dynamically on each page
+    	 this._layoutController.placeInfoBar(this._map);
+    	 this._layoutController.startup(); 
      },
      
      _startupNavigationBar: function() {
@@ -46,7 +51,14 @@ define(["dojo/_base/declare",
 		 this._search = new Search();
 	 	 hash("search");
 	 	 this._search.startup();
-	 }
+	 },
+     
+     _buildMapTest: function() {
+    	 this._map = new Map();
+    	 this._map.startup();
+     }
+     
+     
      
    });
 });
